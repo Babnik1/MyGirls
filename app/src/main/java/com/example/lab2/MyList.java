@@ -2,24 +2,30 @@ package com.example.lab2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MyList extends AppCompatActivity {
     int index;
+    SharedPreferences sharedPref;
+    ArrayList<String> myStringArray = new ArrayList<String>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ArrayList<String> myStringArray = new ArrayList<String>();
+
 
         ArrayAdapter<String> TextAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, myStringArray);
         ListView textList = findViewById(R.id.textList);
@@ -54,5 +60,34 @@ public class MyList extends AppCompatActivity {
 
         });
 
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        for (int i = 0; i < sharedPref.getInt("size", 0);i++)
+        {
+            Log.i("Fact_size_OnCreate", String.valueOf(sharedPref.getInt("size", 0)));
+            myStringArray.add(sharedPref.getString("text" + i, ""+ i));
+            Log.i("Size",String.valueOf(sharedPref.getInt("size", 0)));
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        for (int i=0; i<myStringArray.size();i++ )
+        {
+            editor.putString("text"+i, myStringArray.get(i).toString());
+            Log.i("Save",myStringArray.get(i).toString());
+            editor.apply();
+
+        }
+            editor.putInt("size", myStringArray.size());
+            editor.apply();
+
+        Log.i("Size",String.valueOf(myStringArray.size()));
+        Log.i("Fact_size", String.valueOf(sharedPref.getInt("size", 0)));
     }
 }

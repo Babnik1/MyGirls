@@ -23,7 +23,8 @@ public class Autorization extends Activity {
         button_singIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Email.getText().toString().equals(myEmail) && Password.getText().toString().equals(myPassword))
+                if(/*Email.getText().toString().equals(myEmail) && Password.getText().toString().equals(myPassword)*/
+                    true)
                 {
                     Intent intent = new Intent(Autorization.this,MyList.class);
                     intent.putExtra("hello", "Hello from FirstActivity");
