@@ -64,30 +64,32 @@ public class MyList extends AppCompatActivity {
 
         for (int i = 0; i < sharedPref.getInt("size", 0);i++)
         {
-            Log.i("Fact_size_OnCreate", String.valueOf(sharedPref.getInt("size", 0)));
-            myStringArray.add(sharedPref.getString("text" + i, ""+ i));
-            Log.i("Size",String.valueOf(sharedPref.getInt("size", 0)));
+            myStringArray.add(sharedPref.getString("text" + i, "" + i));
         }
-
+        sharedPref.getInt("size", myStringArray.size());
+        Log.i("Fact_size_OnCreate", String.valueOf(sharedPref.getInt("size", 0)));
+        Log.i("Size",String.valueOf(myStringArray.size()));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        for (int i=0; i<myStringArray.size();i++ )
+
+
+        editor.putInt("size", myStringArray.size());
+        editor.apply();
+        Log.i("Size",String.valueOf(myStringArray.size()));
+        Log.i("Fact_size", String.valueOf(sharedPref.getInt("size", 0)));
+        for (int i=0; i < myStringArray.size();i++ )
         {
             editor.putString("text"+i, myStringArray.get(i).toString());
             Log.i("Save",myStringArray.get(i).toString());
             editor.apply();
 
         }
-            editor.putInt("size", myStringArray.size());
-            editor.apply();
-
-        Log.i("Size",String.valueOf(myStringArray.size()));
-        Log.i("Fact_size", String.valueOf(sharedPref.getInt("size", 0)));
     }
 }
