@@ -2,6 +2,7 @@ package com.example.lab2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,10 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Autorization extends Activity {
-    String myEmail = "Pasha123";
+    String myEmail = "Pasha";
     String myPassword = "12345";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int orintationStatus = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.autorization);
         Toast.makeText(Autorization.this, "Create", Toast.LENGTH_SHORT).show();
@@ -31,6 +33,7 @@ public class Autorization extends Activity {
                 }
             }
         });
+
     }
 
     @Override

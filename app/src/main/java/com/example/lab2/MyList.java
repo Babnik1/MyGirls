@@ -2,6 +2,7 @@ package com.example.lab2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,12 +15,13 @@ import java.util.ArrayList;
 
 public class MyList extends AppCompatActivity {
     int index;
+    ArrayList<String> myStringArray = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ArrayList<String> myStringArray = new ArrayList<String>();
+
 
         ArrayAdapter<String> TextAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, myStringArray);
         ListView textList = findViewById(R.id.textList);
@@ -54,5 +56,19 @@ public class MyList extends AppCompatActivity {
 
         });
 
+
+
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            myStringArray.remove(1);
+        }
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            myStringArray.remove(1);
+        }
     }
 }
